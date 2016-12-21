@@ -1,0 +1,22 @@
+{
+  "name": "Console/Multitask",
+  "description": "Console multithread execution for manipulations of arrays",
+  "keywords": [
+    "PHP"
+  ],
+  "type": "library",
+  "authors": [
+    {
+      "name": "Petar Ivanov"
+    }
+  ],
+  "minimum-stability": "dev-master",
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Console\\": "src/Console"
+    }
+  }
+}
