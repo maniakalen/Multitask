@@ -1,5 +1,5 @@
 {
-  "name": "Console/Multitask",
+  "name": "console/multitask",
   "description": "Console multithread execution for manipulations of arrays",
   "keywords": [
     "PHP"
