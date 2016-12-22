@@ -8,4 +8,4 @@ PHP Console Multitask engine
     }
   ]
   </pre>
-  and "Console/Multitask" : "*@dev" in your require
+  and "Console/Multitask" : "1.0.0" in your require
