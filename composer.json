@@ -10,13 +10,20 @@
       "name": "Petar Ivanov"
     }
   ],
-  "minimum-stability": "dev-master",
+  "minimum-stability": "dev",
   "require": {
-    "php": ">=5.4.0"
+    "php": ">=5.4.0",
+    "System/Events" : "*@dev"
   },
   "autoload": {
     "psr-4": {
       "Console\\": "src/Console"
     }
-  }
+  },
+  "repositories": [
+    {
+      "url": "https://github.com/maniakalen/Events.git",
+      "type": "git"
+    }
+  ]
 }

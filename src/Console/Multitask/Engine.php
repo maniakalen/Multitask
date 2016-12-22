@@ -12,6 +12,10 @@
  */
 
 namespace Console\Multitask;
+use Console\Multitask\Events\ChildProcessEvent;
+use Console\Multitask\Events\EngineEvent;
+use System\Events\Dispatcher;
+
 /**
  * Class Engine
  *
@@ -23,8 +27,16 @@ namespace Console\Multitask;
  * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link     none
  */
-class Engine
+class Engine extends Dispatcher
 {
+    const EVENT_EXECUTION_START = 'exec_start';
+    const EVENT_EXECUTION_END = 'exec_end';
+
+    const EVENT_CHILD_START = 'child_start';
+    const EVENT_CHILD_END = 'child_end';
+
+    const EVENT_CHILD_FORKED = 'child_forked';
+
     /** @var int maxForks - maximum number of concurent threads */
     protected $maxForks = 5;
     /** @var array $pids - running process ids */
@@ -71,32 +83,23 @@ class Engine
      */
     public function execute()
     {
-        $start = microtime(true);
-        $startTime = time();
+        $this->trigger(self::EVENT_EXECUTION_START, new EngineEvent());
         $count = $this->adapter->getCount();
         if ($count) {
             $this->startForks();
             do {
-                //echo "Checking child pids\n";
                 $pid = pcntl_waitpid(-1, $status, WNOHANG);
                 if ($pid == -1) {
                     break;
                 } else if ($pid) {
                     if (isset($this->pids[$pid])) {
-                        //echo "Child pid with id $pid ended\n";
                         unset($this->pids[$pid]);
                         $this->startForks();
                     }
                 }
             } while ($this->adapter->getCount() && count($this->pids));
         }
-        printf(
-            "Execution started at %s and ended at %s with duration of %s processing total of %s items\n",
-            date("H:i d/m/Y", $startTime),
-            date("H:i d/m/Y"),
-            microtime(true) - $start,
-            $count
-        );
+        $this->trigger(self::EVENT_EXECUTION_END, new EngineEvent());
         return $this;
     }
 
@@ -118,10 +121,12 @@ class Engine
         if ($pid == -1) {
             die("cannot fork");
         } else if ($pid) {
-            echo "Child process with $pid running\n";
+            $this->trigger(self::EVENT_CHILD_FORKED, new ChildProcessEvent($pid));
             return $pid;
         } else {
+            $this->trigger(self::EVENT_CHILD_START);
             $this->adapter->run($item);
+            $this->trigger(self::EVENT_CHILD_END);
             die();
         }
     }
