@@ -1,5 +1,5 @@
 <?php
-/** $Id: - $ */
+
 namespace Console\Multitask;
 /**
  * Interface Engine

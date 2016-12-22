@@ -1,6 +1,6 @@
 <?php
 /**
- * Console import from Iris to Catalog Products
+ * Console import multithread engine
  *
  * PHP version 5
  *
@@ -91,7 +91,7 @@ class Engine
             } while ($this->adapter->getCount() && count($this->pids));
         }
         printf(
-            "Execution started at %s and ended at %s with duration of %s processing total of %s products\n",
+            "Execution started at %s and ended at %s with duration of %s processing total of %s items\n",
             date("H:i d/m/Y", $startTime),
             date("H:i d/m/Y"),
             microtime(true) - $start,
