@@ -10,10 +10,11 @@
       "name": "Petar Ivanov"
     }
   ],
-  "minimum-stability": "dev-master",
+  "minimum-stability": "dev",
+  "version" : "1.0.0",
   "require": {
     "php": ">=5.4.0",
-    "System/Events" : "*@dev-master"
+    "System/Events" : "1.0.0"
   },
   "autoload": {
     "psr-4": {
