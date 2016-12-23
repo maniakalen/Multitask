@@ -14,6 +14,7 @@
 namespace Console\Multitask;
 use Console\Multitask\Events\ChildProcessEvent;
 use Console\Multitask\Events\EngineEvent;
+use Console\Multitask\Events\ExceptionEvent;
 use System\Events\Dispatcher;
 
 /**
@@ -36,6 +37,8 @@ class Engine extends Dispatcher
     const EVENT_CHILD_END = 'child_end';
 
     const EVENT_CHILD_FORKED = 'child_forked';
+
+    const EVENT_CHILD_END_EXCEPTION = 'child_end_exception';
 
     /** @var int maxForks - maximum number of concurent threads */
     protected $maxForks;
@@ -129,9 +132,13 @@ class Engine extends Dispatcher
             $this->trigger(self::EVENT_CHILD_FORKED, new ChildProcessEvent($pid));
             return $pid;
         } else {
-            $this->trigger(self::EVENT_CHILD_START);
-            $this->adapter->run($item);
-            $this->trigger(self::EVENT_CHILD_END);
+            try {
+                $this->trigger(self::EVENT_CHILD_START);
+                $this->adapter->run($item);
+                $this->trigger(self::EVENT_CHILD_END);
+            } catch (\Exception $ex) {
+                $this->trigger(self::EVENT_CHILD_END_EXCEPTION, new ExceptionEvent($ex));
+            }
             die();
         }
     }
