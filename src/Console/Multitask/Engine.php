@@ -38,23 +38,28 @@ class Engine extends Dispatcher
     const EVENT_CHILD_FORKED = 'child_forked';
 
     /** @var int maxForks - maximum number of concurent threads */
-    protected $maxForks = 5;
+    protected $maxForks;
     /** @var array $pids - running process ids */
     protected $pids = array();
 
     /** @var Adapter $adapter */
     protected $adapter;
+
     /**
      * ImportMultiTasking constructor.
      *
      * Inicializing the Magento application for console. Setting developer mode and disabling automatic index.
      *
      * This stuff is inherited from already existing import operations that are considered working.
+     * @param Adapter $adapter
+     * @param int $forksNum
      */
-    public function __construct(Adapter $adapter)
+    public function __construct(Adapter $adapter, $forksNum = 5)
     {
         $this->adapter = $adapter;
         $this->adapter->init();
+
+        $this->maxForks = (int)$forksNum;
     }
 
     /**
