@@ -15,17 +15,11 @@
   "version" : "1.0.0",
   "require": {
     "php": ">=5.4.0",
-    "System/Events" : "1.0.0"
+    "system/events" : "1.0.0"
   },
   "autoload": {
     "psr-4": {
       "Console\\": "src/Console"
     }
-  },
-  "repositories": [
-    {
-      "url": "https://github.com/maniakalen/Events.git",
-      "type": "git"
-    }
-  ]
+  }
 }
