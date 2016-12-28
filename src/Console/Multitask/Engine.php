@@ -105,7 +105,7 @@ class Engine extends Dispatcher
                         $this->startForks();
                     }
                 }
-            } while ($this->adapter->getCount() && count($this->pids));
+            } while ($this->adapter->getCount() || count($this->pids));
         }
         $this->trigger(self::EVENT_EXECUTION_END, new EngineEvent());
         return $this;
