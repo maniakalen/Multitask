@@ -9,3 +9,6 @@ PHP Console Multitask engine
   ]
   </pre>
   and "Console/Multitask" : "1.0.0" in your require
+
+
+The package is also available in packagist: "console/multitask"
