@@ -143,4 +143,8 @@ class Engine extends Dispatcher
         }
     }
 
+    public function getMaxThreadsNum()
+    {
+        return $this->maxForks;
+    }
 }

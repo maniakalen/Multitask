@@ -42,4 +42,12 @@ interface Adapter
      * @return mixed
      */
     public function run($item);
+
+    /**
+     * This method sets the running engine to the adapter
+     *
+     * @param Engine $engine
+     * @return mixed
+     */
+    public function setEngine(Engine $engine);
 }
