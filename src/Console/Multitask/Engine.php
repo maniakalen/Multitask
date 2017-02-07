@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Products
- * @package  Santaeulalia
+ * @package  Multitask
  * @author   peter.georgiev <peter.georgiev@concatel.com>
  * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link     none
@@ -75,7 +75,7 @@ class Engine extends Dispatcher
         foreach ($items as $k => $item) {
             if (count($this->pids) < $this->maxForks) {
                 //echo "Starting child for product secuence $k id $id\n";
-                $p = $this->importChild($item);
+                $p = $this->runChild($item);
                 $this->pids[$p] = $p;
                 unset($items[$k]);
             } else {
@@ -123,7 +123,7 @@ class Engine extends Dispatcher
      * @return int
      * @internal param $id
      */
-    protected function importChild($item)
+    protected function runChild($item)
     {
         $pid = pcntl_fork();
         if ($pid == -1) {
