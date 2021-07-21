@@ -49,11 +49,10 @@ class Engine extends Dispatcher
     protected $adapter;
 
     /**
-     * ImportMultiTasking constructor.
+     * Engine constructor.
      *
-     * Inicializing the Magento application for console. Setting developer mode and disabling automatic index.
+     * Inicializing the multi tasking engine.
      *
-     * This stuff is inherited from already existing import operations that are considered working.
      * @param Adapter $adapter
      * @param int $forksNum
      */
